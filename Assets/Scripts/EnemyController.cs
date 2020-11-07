@@ -2,24 +2,28 @@
 
 public class EnemyController: MonoBehaviour
 {
-    private const float Acceleration = 0.05f;
+    private const float Acceleration = 0.01f;
+
+    public bool IsActive = false;
 
     private EarthController Earth;
+    private GameController GameController;
     private float Velocity = 0f;
 
     void Awake()
     {
         Earth = GameObject.FindObjectOfType<EarthController>();
+        GameController = GameObject.FindObjectOfType<GameController>();
     }
 
     void Update()
     {
-        if(Earth)
+        if(IsActive && Earth)
         {
             Velocity += Acceleration;
 
             Vector3 targetDirection = Earth.transform.position - transform.position;
-            if(targetDirection.magnitude >= 1.5f)
+            if(targetDirection.magnitude >= 1f)
             {
                 transform.position += targetDirection * Velocity * Time.deltaTime;
             }
@@ -44,6 +48,7 @@ public class EnemyController: MonoBehaviour
 
     void Destroyed()
     {
+        GameController.EnemyKilled();
         Destroy(gameObject);
     }
 }

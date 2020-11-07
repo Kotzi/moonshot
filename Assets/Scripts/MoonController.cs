@@ -2,37 +2,25 @@
 
 public class MoonController: MonoBehaviour
 {
-    private float RotateSpeed = 1f;
-    private float AttackSpeed = 4f;
-    private float Radius;
-    private float Angle;
+    private float AttackSpeed = 6f;
+    private float MaxDistance = 3f;
     private float AddedDistance = 0f;
-
-    void Start()
-    {
-        Radius = transform.localPosition.magnitude; // Only if Moon is always centered
-    }
-
+    
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow)) 
-        {
-            Angle += RotateSpeed * Time.deltaTime;
-        } 
-        else if (Input.GetKey(KeyCode.DownArrow)) 
-        {
-            Angle -= RotateSpeed * Time.deltaTime;
-        }
+        var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
-            AddedDistance += AttackSpeed * Time.deltaTime;
+            AddedDistance = Mathf.Lerp(AddedDistance, MaxDistance, AttackSpeed * Time.deltaTime);
         }
         else 
         {
             AddedDistance = Mathf.Lerp(AddedDistance, 0f, Time.deltaTime*5f);
         }
 
-        transform.localPosition = new Vector3(Mathf.Sin(Angle), Mathf.Cos(Angle), 0) * (Radius + AddedDistance);
+        transform.localPosition = dir.normalized * AddedDistance;
     }
 }

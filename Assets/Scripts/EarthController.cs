@@ -2,7 +2,7 @@
 
 public class EarthController: MonoBehaviour
 {
-    private float RotateSpeed = 0.5f;
+    private float RotateSpeed = 0.3f;
     private float Radius;
     private float Angle;
 
@@ -15,6 +15,6 @@ public class EarthController: MonoBehaviour
     {
         Angle += RotateSpeed * Time.deltaTime;
  
-        transform.position = new Vector2(Mathf.Sin(Angle), Mathf.Cos(Angle)) * Radius;
+        transform.position = (new Vector3(Mathf.Sin(Angle), Mathf.Cos(Angle), 0f) * Radius).Round();
     }
 }
