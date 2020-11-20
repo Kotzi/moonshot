@@ -4,6 +4,12 @@ public class GameController: MonoBehaviour
 {
     private int CurrentWave = 0;
     private int CurrentWaveLength = 0;
+    private EarthController Earth;
+
+    void Awake() 
+    {
+        Earth = GameObject.FindObjectOfType<EarthController>();
+    }
 
     void Update()
     {
@@ -13,6 +19,7 @@ public class GameController: MonoBehaviour
             var newWave = GameObject.Find("EnemyGroup" + CurrentWave);
             if (newWave) 
             {
+                Earth.IncreaseSpeed();
                 CurrentWaveLength = newWave.transform.childCount;
                 foreach (var enemy in newWave.GetComponentsInChildren<EnemyController>())
                 {

@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6471205339193041344}
   - component: {fileID: 7262662998524154046}
-  - component: {fileID: 4146211146092656505}
   - component: {fileID: 7102199832138726648}
   - component: {fileID: 4301648424558184402}
+  - component: {fileID: 961122971311105376}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: PreflyEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,19 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4146211146092656505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506291805336987731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d323e1dabaa14cd291bc3f8547e8228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsActive: 0
 --- !u!50 &7102199832138726648
 Rigidbody2D:
   serializedVersion: 4
@@ -134,3 +121,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.9
+--- !u!114 &961122971311105376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506291805336987731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8fd02c15d8234c92a297b629af2f739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActive: 0
