@@ -22,15 +22,12 @@ public class PreflyEnemyController: EnemyController
 
             Vector3 targetDirection = position - transform.position;
 
-            print(PreflyCompleted);
-            print(targetDirection);
             if(Vector3.SqrMagnitude(targetDirection) > 0.01)
             {
                 transform.position += targetDirection * Velocity * Time.deltaTime;
             }
             else 
             {
-                print("PreflyCompleted!!!");
                 transform.position = position;
                 PreflyCompleted = true;
             }

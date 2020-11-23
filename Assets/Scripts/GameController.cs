@@ -5,10 +5,12 @@ public class GameController: MonoBehaviour
     private int CurrentWave = 0;
     private int CurrentWaveLength = 0;
     private EarthController Earth;
+    private SunController Sun;
 
     void Awake() 
     {
         Earth = GameObject.FindObjectOfType<EarthController>();
+        Sun = GameObject.FindObjectOfType<SunController>();
     }
 
     void Update()
@@ -20,10 +22,11 @@ public class GameController: MonoBehaviour
             if (newWave) 
             {
                 Earth.IncreaseSpeed();
+                Sun.IncreaseIntensity();
                 CurrentWaveLength = newWave.transform.childCount;
                 foreach (var enemy in newWave.GetComponentsInChildren<EnemyController>())
                 {
-                    enemy.IsActive = true;
+                    enemy.Activate();
                 }
             }
             else 

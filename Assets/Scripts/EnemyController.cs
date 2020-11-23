@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class EnemyController: MonoBehaviour
 {
     protected const float Acceleration = 0.01f;
 
-    public bool IsActive = false;
+    protected bool IsActive = false;
 
     protected EarthController Earth;
     protected GameController GameController;
@@ -37,6 +38,11 @@ public class EnemyController: MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        transform.localScale = Vector3.one * 0.15f;
+    }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.name == "Earth")
@@ -53,5 +59,11 @@ public class EnemyController: MonoBehaviour
     {
         GameController.EnemyKilled();
         Destroy(gameObject);
+    }
+
+    public void Activate() 
+    {
+        IsActive = true;
+        transform.DOScale(Vector3.one * 0.3f, 0.75f);
     }
 }
