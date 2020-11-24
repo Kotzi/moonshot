@@ -13,9 +13,11 @@ public class EarthController: MonoBehaviour
     private float AddedDistance = 0f;
     private bool IsAttacking = false;
     private float AttackTime = 0f;
+    private GameController GameController;
 
     void Awake()
     {
+        GameController = Object.FindObjectOfType<GameController>();
         var position = transform.position;
         position.z = 0;
         Radius = position.magnitude; // Only if Sun is always centered
@@ -65,5 +67,11 @@ public class EarthController: MonoBehaviour
     public void IncreaseSpeed()
     {
         RotateSpeed = Mathf.Clamp(RotateSpeed * 1.25f, 0f, MaxSpeed);
+    }
+
+    public void Destroyed()
+    {
+        // Do something nice
+        GameController.EarthDestroyed();
     }
 }

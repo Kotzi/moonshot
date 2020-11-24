@@ -47,7 +47,7 @@ public class EnemyController: MonoBehaviour
     {
         if(collider.name == "Earth")
         {
-            print("you died!");
+            Earth.Destroyed();
         }
         else if (collider.name == "Moon")
         {
