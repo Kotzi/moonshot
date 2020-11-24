@@ -6,6 +6,7 @@ public class EarthController: MonoBehaviour
     private const float MaxAttackTime = 0.05f;
     public float Radius = 0f;
     public GameObject Moon;
+    private int Lifes = 3;
     private float RotateSpeed = 0.3f;
     private float Angle;
     private float AttackSpeed = 10f;
@@ -69,9 +70,18 @@ public class EarthController: MonoBehaviour
         RotateSpeed = Mathf.Clamp(RotateSpeed * 1.25f, 0f, MaxSpeed);
     }
 
-    public void Destroyed()
+    public void Attacked()
+    {
+        Lifes -= 1;
+        if (Lifes <= 0)
+        {
+            Destroyed();
+        }
+    }
+    void Destroyed()
     {
         // Do something nice
+        Destroy(gameObject);
         GameController.EarthDestroyed();
     }
 }

@@ -47,7 +47,8 @@ public class EnemyController: MonoBehaviour
     {
         if(collider.name == "Earth")
         {
-            Earth.Destroyed();
+            Earth.Attacked();
+            Destroyed();
         }
         else if (collider.name == "Moon")
         {
