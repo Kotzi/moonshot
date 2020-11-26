@@ -40,7 +40,7 @@ public class EnemyController: MonoBehaviour
 
     void Start()
     {
-        transform.localScale = Vector3.one * 0.15f;
+        transform.localScale = Vector3.one * 2f;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -65,6 +65,6 @@ public class EnemyController: MonoBehaviour
     public void Activate() 
     {
         IsActive = true;
-        transform.DOScale(Vector3.one * 0.3f, 0.75f);
+        transform.DOScale(Vector3.one * 2.5f, 0.75f);
     }
 }
