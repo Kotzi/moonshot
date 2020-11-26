@@ -6,16 +6,17 @@ public class EnemyController: MonoBehaviour
     protected const float Acceleration = 0.01f;
 
     protected bool IsActive = false;
-
     protected EarthController Earth;
     protected GameController GameController;
     protected float Velocity = 0f;
+    private Animator Animator;
 
     public virtual void OnAwake() { }
     void Awake()
     {
         Earth = GameObject.FindObjectOfType<EarthController>();
         GameController = GameObject.FindObjectOfType<GameController>();
+        Animator = GetComponent<Animator>();
         OnAwake();
     }
 
@@ -65,6 +66,7 @@ public class EnemyController: MonoBehaviour
     public void Activate() 
     {
         IsActive = true;
+        Animator.enabled = true;
         transform.DOScale(Vector3.one * 2.5f, 0.75f);
     }
 }
