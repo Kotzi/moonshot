@@ -28,7 +28,7 @@ public class EarthController: MonoBehaviour
     {
         Angle += RotateSpeed * Time.deltaTime;
  
-        transform.position = new Vector3(Mathf.Sin(Angle), Mathf.Cos(Angle), 10f) * Radius;
+        transform.position = new Vector3(1.5f*Mathf.Sin(Angle), Mathf.Cos(Angle), 10f) * Radius;
 
         var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(Moon.transform.position);
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -73,6 +73,7 @@ public class EarthController: MonoBehaviour
     public void Attacked()
     {
         Lifes -= 1;
+        GameController.EarthLifesChanged(Lifes);
         if (Lifes <= 0)
         {
             Destroyed();
