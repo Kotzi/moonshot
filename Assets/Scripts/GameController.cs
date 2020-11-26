@@ -7,6 +7,7 @@ public class GameController: MonoBehaviour
     public Text WavesText;
     public Text LifesText;
     public GameObject GameOver;
+    public Text GameOverWavesText;
     public GameObject YouWon; 
     private int CurrentWave = 0;
     private int CurrentWaveLength = 0;
@@ -21,7 +22,7 @@ public class GameController: MonoBehaviour
 
     void Update()
     {
-        if(CurrentWaveLength == 0)
+        if(CurrentWaveLength == 0 && !YouWon.activeSelf && !GameOver.activeSelf)
         {
             CurrentWave += 1;
             WavesText.text = "Wave: " + CurrentWave;
@@ -55,6 +56,7 @@ public class GameController: MonoBehaviour
 
     public void EarthDestroyed()
     {
+        GameOverWavesText.text = "You survived " + (CurrentWave) + " waves";
         GameOver.SetActive(true);
     }
 
