@@ -17,22 +17,21 @@ public class SpiralEnemyController: EnemyController
         Offset = transform.position + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0);
     }
 
-    void Update()
-    {
-        if(IsActive && Earth)
-        {
-            Angle += RotateSpeed * Time.deltaTime;
+    public override Vector3 Move(float time) 
+    { 
+        Angle += RotateSpeed * time;
 
-            if(Radius < Earth.Radius) 
-            {
-                Radius += RadiusSpeed * Time.deltaTime;
-            }
-    
-            var newPosition = new Vector3(Mathf.Sin(Angle), Mathf.Cos(Angle), 0f) * Radius + Offset;
-            Vector2 targetInViewportPosition = Camera.WorldToViewportPoint(newPosition);
-            Vector3 clampedPosition = Camera.ViewportToWorldPoint(new Vector2(Mathf.Clamp(targetInViewportPosition.x, 0.05f, 0.95f), Mathf.Clamp(targetInViewportPosition.y, 0.05f, 0.95f)));
-            clampedPosition.z = 10;
-            transform.position = Vector3.Lerp(transform.position, clampedPosition, 0.5f);
+        if(Radius < Earth.Radius) 
+        {
+            Radius += RadiusSpeed * time;
         }
+
+        var oldPosition = transform.position;
+        var newPosition = new Vector3(Mathf.Sin(Angle), Mathf.Cos(Angle), 0f) * Radius + Offset;
+        Vector2 targetInViewportPosition = Camera.WorldToViewportPoint(newPosition);
+        Vector3 clampedPosition = Camera.ViewportToWorldPoint(new Vector2(Mathf.Clamp(targetInViewportPosition.x, 0.05f, 0.95f), Mathf.Clamp(targetInViewportPosition.y, 0.05f, 0.95f)));
+        clampedPosition.z = 10;
+        transform.position = Vector3.Lerp(transform.position, clampedPosition, 0.5f);
+        return (newPosition - oldPosition);
     }
 }

@@ -10,6 +10,7 @@ public class EnemyController: MonoBehaviour
     protected GameController GameController;
     protected float Velocity = 0f;
     private Animator Animator;
+    private SpriteRenderer SpriteRenderer;
 
     public virtual void OnAwake() { }
     void Awake()
@@ -17,7 +18,25 @@ public class EnemyController: MonoBehaviour
         Earth = GameObject.FindObjectOfType<EarthController>();
         GameController = GameObject.FindObjectOfType<GameController>();
         Animator = GetComponent<Animator>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
         OnAwake();
+    }
+
+    public virtual Vector3 Move(float time) 
+    { 
+        var targetDirection = Earth.transform.position - transform.position;
+
+        if(targetDirection != Vector3.zero)
+        {
+            var increment = targetDirection * Velocity * Time.deltaTime;
+            transform.position += increment;
+            return increment;
+        }
+        else 
+        {
+            transform.position = Earth.transform.position;
+            return Vector3.zero;
+        }
     }
 
     void Update()
@@ -25,17 +44,26 @@ public class EnemyController: MonoBehaviour
         if(IsActive && Earth)
         {
             Velocity += Acceleration;
-            var position = Earth.transform.position;
+            var movement = Move(Time.deltaTime);
+            bool flipSprite = (SpriteRenderer.flipX ? (movement.x > 0f) : (movement.x < 0f));
+            if (flipSprite) 
+            {
+                SpriteRenderer.flipX = !SpriteRenderer.flipX;
+            }
 
-            Vector3 targetDirection = position - transform.position;
-            if(targetDirection != Vector3.zero)
-            {
-                transform.position += targetDirection * Velocity * Time.deltaTime;
-            }
-            else 
-            {
-                transform.position = position;
-            }
+            // var direction = transform.rotation * Vector2.right;
+            // var targetDirection = Earth.transform.position - transform.position;
+            // var angleDiff = Vector2.SignedAngle(direction, targetDirection);
+            // var clampedDiff = Mathf.Clamp(
+            //     angleDiff,
+            //     -100 * Time.deltaTime,
+            //     100 * Time.deltaTime
+            // );
+
+            // transform.rotation = Quaternion.AngleAxis(
+            //     transform.eulerAngles.z + clampedDiff,
+            //     Vector3.forward
+            // );
         }
     }
 

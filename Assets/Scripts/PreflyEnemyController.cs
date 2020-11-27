@@ -17,25 +17,23 @@ public class PreflyEnemyController: EnemyController
         PreflyDirection = clampedPosition;
     }
 
-    void Update()
-    {
-        if(IsActive && Earth)
+    public override Vector3 Move(float time) 
+    { 
+        var position = PreflyCompleted ? Earth.transform.position : PreflyDirection;
+
+        Vector3 targetDirection = position - transform.position;
+
+        if(Vector3.SqrMagnitude(targetDirection) > 0.01)
         {
-            Velocity += Acceleration;
-
-            var position = PreflyCompleted ? Earth.transform.position : PreflyDirection;
-
-            Vector3 targetDirection = position - transform.position;
-
-            if(Vector3.SqrMagnitude(targetDirection) > 0.01)
-            {
-                transform.position += targetDirection * Velocity * Time.deltaTime;
-            }
-            else 
-            {
-                transform.position = position;
-                PreflyCompleted = true;
-            }
+            var movement = targetDirection * Velocity * time;
+            transform.position += movement;
+            return movement;
+        }
+        else 
+        {
+            transform.position = position;
+            PreflyCompleted = true;
+            return Vector3.zero;
         }
     }
 }
