@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class EnemyController: MonoBehaviour
 {
     protected const float Acceleration = 0.01f;
 
+    public Sprite SmallSprite;
+
     protected bool IsActive = false;
     protected EarthController Earth;
     protected GameController GameController;
     protected float Velocity = 0f;
-    private Animator Animator;
+    protected Animator Animator;
     private SpriteRenderer SpriteRenderer;
+    private List<SpriteRenderer> FlippableSpriteRendererList;
 
     public virtual void OnAwake() { }
     void Awake()
@@ -19,6 +23,9 @@ public class EnemyController: MonoBehaviour
         GameController = GameObject.FindObjectOfType<GameController>();
         Animator = GetComponent<Animator>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer.sprite = SmallSprite;
+        FlippableSpriteRendererList = new List<SpriteRenderer>(GetComponentsInChildren<SpriteRenderer>());
+        FlippableSpriteRendererList.Add(SpriteRenderer);
         OnAwake();
     }
 
@@ -48,7 +55,10 @@ public class EnemyController: MonoBehaviour
             bool flipSprite = (SpriteRenderer.flipX ? (movement.x > 0f) : (movement.x < 0f));
             if (flipSprite) 
             {
-                SpriteRenderer.flipX = !SpriteRenderer.flipX;
+                foreach (var sp in FlippableSpriteRendererList)
+                {
+                    sp.flipX = !sp.flipX;
+                }
             }
 
             // var direction = transform.rotation * Vector2.right;
@@ -69,14 +79,14 @@ public class EnemyController: MonoBehaviour
 
     void Start()
     {
-        transform.localScale = Vector3.one * 2f;
+        transform.localScale = Vector3.one;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.name == "Earth")
         {
-            Earth.Attacked();
+            Earth.Attacked(this);
             Destroyed();
         }
         else if (collider.name == "Moon")

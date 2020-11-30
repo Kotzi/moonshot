@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PreflyEnemy
+  m_Name: PreflyEnemyWithFace
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -35,6 +35,20 @@ AnimationClip:
     path: 
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: -5848822041156737287, guid: 7b850afed6d7c43fa88d899dbd4bde31,
+        type: 3}
+    - time: 0.083333336
+      value: {fileID: -3397507413007789631, guid: 7b850afed6d7c43fa88d899dbd4bde31,
+        type: 3}
+    - time: 0.16666667
+      value: {fileID: 7803084103611748814, guid: 7b850afed6d7c43fa88d899dbd4bde31,
+        type: 3}
+    attribute: m_Sprite
+    path: Face
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -49,11 +63,21 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 2770785369
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: -5414674972559578299, guid: c680fc62a3baa4d3fa5dde89c6ee4060, type: 3}
     - {fileID: -5957689450797518274, guid: c680fc62a3baa4d3fa5dde89c6ee4060, type: 3}
     - {fileID: 3928691845375499649, guid: c680fc62a3baa4d3fa5dde89c6ee4060, type: 3}
     - {fileID: -5414674972559578299, guid: c680fc62a3baa4d3fa5dde89c6ee4060, type: 3}
+    - {fileID: -5848822041156737287, guid: 7b850afed6d7c43fa88d899dbd4bde31, type: 3}
+    - {fileID: -3397507413007789631, guid: 7b850afed6d7c43fa88d899dbd4bde31, type: 3}
+    - {fileID: 7803084103611748814, guid: 7b850afed6d7c43fa88d899dbd4bde31, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

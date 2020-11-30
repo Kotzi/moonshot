@@ -25,9 +25,13 @@ public class SpiralEnemyController: EnemyController
         {
             Radius += RadiusSpeed * time;
         }
+        else 
+        {
+            Radius -= RadiusSpeed * time * Random.Range(1f, 1.5f);
+        }
 
         var oldPosition = transform.position;
-        var newPosition = new Vector3(Mathf.Sin(Angle), Mathf.Cos(Angle), 0f) * Radius + Offset;
+        var newPosition = new Vector3(1.5f*Mathf.Sin(Angle), Mathf.Cos(Angle), 0f) * Radius + Offset;
         Vector2 targetInViewportPosition = Camera.WorldToViewportPoint(newPosition);
         Vector3 clampedPosition = Camera.ViewportToWorldPoint(new Vector2(Mathf.Clamp(targetInViewportPosition.x, 0.05f, 0.95f), Mathf.Clamp(targetInViewportPosition.y, 0.05f, 0.95f)));
         clampedPosition.z = 10;

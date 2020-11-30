@@ -3,7 +3,10 @@
 public class EarthController: MonoBehaviour
 {
     private const float MaxSpeed = 2.5f;
-    private const float MaxAttackTime = 0.05f;
+    private const float MaxShootingMoonTime = 0.05f;
+    private const float ShootingMoonMaxCooldown = 0.25f;
+    private const float RotatingMoonMaxCooldown = 1f;
+
     public float Radius = 0f;
     public GameObject Moon;
     private int Lifes = 3;
@@ -12,8 +15,13 @@ public class EarthController: MonoBehaviour
     private float AttackSpeed = 10f;
     private float MaxDistance = 3f;
     private float AddedDistance = 0f;
-    private bool IsAttacking = false;
-    private float AttackTime = 0f;
+    private float ShootingMoonCooldown = 0f;
+    private bool IsShootingMoon = false;
+    private float ShootingMoonTime = 0f;
+    private float RotatingMoonCooldown = 0f;
+    private bool IsRotatingMoon = false;
+    private float RotatingMoonStartingAngle = 0f;
+    private float RotatingMoonAngle = 0f;
     private GameController GameController;
 
     void Awake()
@@ -26,20 +34,22 @@ public class EarthController: MonoBehaviour
 
     void Update()
     {
-        Angle += RotateSpeed * Time.deltaTime;
- 
-        transform.position = new Vector3(1.5f*Mathf.Sin(Angle), Mathf.Cos(Angle), 10f) * Radius;
+        ShootingMoonCooldown -= Time.deltaTime;
+        RotatingMoonCooldown -= Time.deltaTime;
 
-        var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(Moon.transform.position);
-        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        Moon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-        if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Space)) && !IsAttacking && AddedDistance < 0.1f)
+        if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Z)) && !IsShootingMoon && ShootingMoonCooldown <= 0f && AddedDistance < 0.1f)
         {
-            IsAttacking = true;
+            IsShootingMoon = true;
+        } else if ((Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.X)) && !IsRotatingMoon && RotatingMoonCooldown <= 0f)
+        {
+            IsRotatingMoon = true;
+
+            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(Moon.transform.position);
+            RotatingMoonStartingAngle = Mathf.Atan2(dir.y, dir.x);
+            RotatingMoonAngle = RotatingMoonStartingAngle;
         }
 
-        if (IsAttacking)
+        if (IsShootingMoon)
         {
             AddedDistance = Mathf.Lerp(AddedDistance, MaxDistance, AttackSpeed * Time.deltaTime);
         }
@@ -54,15 +64,43 @@ public class EarthController: MonoBehaviour
 
         if ((MaxDistance - AddedDistance) < 0.01)
         {
-            AttackTime += Time.deltaTime;
-            if (AttackTime >= MaxAttackTime)
+            ShootingMoonTime += Time.deltaTime;
+            if (ShootingMoonTime >= MaxShootingMoonTime)
             {
-                AttackTime = 0f;
-                IsAttacking = false;
+                ShootingMoonTime = 0f;
+                IsShootingMoon = false;
+                ShootingMoonCooldown = ShootingMoonMaxCooldown;
             }
         }
 
-        Moon.transform.localPosition = dir.normalized * AddedDistance;
+        Angle += RotateSpeed * Time.deltaTime;
+
+        transform.position = new Vector3(1.5f*Mathf.Sin(Angle), Mathf.Cos(Angle), 10f) * Radius;
+
+        if (IsRotatingMoon) 
+        {
+            RotatingMoonAngle += 30 * RotateSpeed * Time.deltaTime;
+            if (RotatingMoonAngle <= (2*Mathf.PI + RotatingMoonStartingAngle)) 
+            {
+                Moon.transform.rotation = Quaternion.AngleAxis(RotatingMoonAngle * Mathf.Rad2Deg, Vector3.forward);
+            } 
+            else 
+            {
+                IsRotatingMoon = false;
+                RotatingMoonCooldown = RotatingMoonMaxCooldown;
+            }
+        } 
+        else 
+        {
+            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(Moon.transform.position);
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Moon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            Moon.transform.localPosition = dir.normalized * AddedDistance;
+        }
+
+        GameController.UpdateMoonShotSlider(1 - (ShootingMoonCooldown/ShootingMoonMaxCooldown));
+        GameController.UpdateMoonShieldSlider(1 - (RotatingMoonCooldown/RotatingMoonMaxCooldown));
     }
 
     public void IncreaseSpeed()
@@ -70,8 +108,18 @@ public class EarthController: MonoBehaviour
         RotateSpeed = Mathf.Clamp(RotateSpeed * 1.25f, 0f, MaxSpeed);
     }
 
-    public void Attacked()
+    public void Attacked(EnemyController enemy)
     {
+        GameObject go = new GameObject();
+        SpriteRenderer sr = go.AddComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+        var enemySr = enemy.GetComponent<SpriteRenderer>();
+        sr.sprite = enemy.SmallSprite;
+        sr.sortingOrder = enemySr.sortingOrder;
+        sr.sortingLayerName = enemySr.sortingLayerName;
+        sr.sortingLayerID = enemySr.sortingLayerID;
+        go.transform.parent = this.transform;
+        go.transform.localPosition = Vector3.zero;
+
         Lifes -= 1;
         GameController.EarthLifesChanged(Lifes);
         if (Lifes <= 0)

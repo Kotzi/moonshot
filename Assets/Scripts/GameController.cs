@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameController: MonoBehaviour
 {
     public Text WavesText;
     public Text LifesText;
+    public Slider MoonShotSlider;
+    public Slider MoonShieldSlider;
     public GameObject GameOver;
     public Text GameOverWavesText;
     public GameObject YouWon; 
@@ -25,7 +28,12 @@ public class GameController: MonoBehaviour
         if(CurrentWaveLength == 0 && !YouWon.activeSelf && !GameOver.activeSelf)
         {
             CurrentWave += 1;
-            WavesText.text = "Wave: " + CurrentWave;
+            WavesText.text = "Wave " + CurrentWave;
+            var originalScale = WavesText.transform.localScale;
+            WavesText.transform.DOScale(originalScale * 1.3f, 0.7f).OnComplete(() => {
+                WavesText.transform.DOScale(originalScale, 0.3f);
+            });
+
             var newWave = GameObject.Find("EnemyGroup" + CurrentWave);
             if (newWave) 
             {
@@ -52,6 +60,16 @@ public class GameController: MonoBehaviour
     public void EarthLifesChanged(int lifes)
     {
         LifesText.text = "Lifes: " + lifes;
+    }
+
+    public void UpdateMoonShotSlider(float value)
+    {
+        MoonShotSlider.value = value;
+    }
+
+    public void UpdateMoonShieldSlider(float value)
+    {
+        MoonShieldSlider.value = value;
     }
 
     public void EarthDestroyed()

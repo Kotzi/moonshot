@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7262662998524154046}
   - component: {fileID: 7102199832138726648}
   - component: {fileID: 4301648424558184402}
-  - component: {fileID: 961122971311105376}
   - component: {fileID: 8835632551998739202}
+  - component: {fileID: 961122971311105376}
   m_Layer: 8
   m_Name: PreflyEnemy
   m_TagString: Untagged
@@ -124,18 +124,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.09
---- !u!114 &961122971311105376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506291805336987731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8fd02c15d8234c92a297b629af2f739, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &8835632551998739202
 Animator:
   serializedVersion: 3
@@ -155,6 +143,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &961122971311105376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506291805336987731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8fd02c15d8234c92a297b629af2f739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SmallSprite: {fileID: 21300000, guid: 87ad621d1c3da4e8593c832650e150b0, type: 3}
 --- !u!1 &3963768337635665690
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,8 +226,7 @@ SpriteRenderer:
   m_SortingLayerID: 1165068251
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: -5848822041156737287, guid: 7b850afed6d7c43fa88d899dbd4bde31,
-    type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -234,6 +234,6 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

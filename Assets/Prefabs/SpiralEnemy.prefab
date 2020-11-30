@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7262662998524154046}
   - component: {fileID: 7102199832138726648}
   - component: {fileID: 3674985959652750560}
-  - component: {fileID: 7835978690045890192}
   - component: {fileID: 2312971362275445662}
+  - component: {fileID: 7835978690045890192}
   m_Layer: 8
   m_Name: SpiralEnemy
   m_TagString: Untagged
@@ -123,18 +123,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.015}
   m_Size: {x: 0.07, y: 0.12}
   m_Direction: 0
---- !u!114 &7835978690045890192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506291805336987731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acf0dd0bffdf44a88bc54247ad634b7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &2312971362275445662
 Animator:
   serializedVersion: 3
@@ -154,3 +142,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7835978690045890192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506291805336987731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acf0dd0bffdf44a88bc54247ad634b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SmallSprite: {fileID: 21300000, guid: 7904c8ecaaff24e8b803e92bcbfdb151, type: 3}
