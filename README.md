@@ -6,3 +6,4 @@ Sun from https://opengameart.org/content/shiny-sun
 Earth and Moon from https://deep-fold.itch.io/pixel-planet-generator
 Monsters from: https://ansimuz.itch.io/grotto-escape-ii-art-pack-
 Background from https://v-ktor.itch.io/nebula-background-images
+Music (Racing Through Asteroids) from Leonardo Paz (https://opengameart.org/content/outer-space-music-pack)

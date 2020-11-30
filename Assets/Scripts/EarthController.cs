@@ -2,15 +2,14 @@
 
 public class EarthController: MonoBehaviour
 {
-    private const float MaxSpeed = 2.5f;
     private const float MaxShootingMoonTime = 0.05f;
     private const float ShootingMoonMaxCooldown = 0.25f;
     private const float RotatingMoonMaxCooldown = 1f;
 
     public float Radius = 0f;
     public GameObject Moon;
-    private int Lifes = 3;
-    private float RotateSpeed = 0.3f;
+    private int Lifes = 10;
+    private float RotateSpeed = 1f;
     private float Angle;
     private float AttackSpeed = 10f;
     private float MaxDistance = 3f;
@@ -27,6 +26,7 @@ public class EarthController: MonoBehaviour
     void Awake()
     {
         GameController = Object.FindObjectOfType<GameController>();
+        GameController.EarthLifesChanged(Lifes);
         var position = transform.position;
         position.z = 0;
         Radius = position.magnitude; // Only if Sun is always centered
@@ -103,11 +103,6 @@ public class EarthController: MonoBehaviour
         GameController.UpdateMoonShieldSlider(1 - (RotatingMoonCooldown/RotatingMoonMaxCooldown));
     }
 
-    public void IncreaseSpeed()
-    {
-        RotateSpeed = Mathf.Clamp(RotateSpeed * 1.25f, 0f, MaxSpeed);
-    }
-
     public void Attacked(EnemyController enemy)
     {
         GameObject go = new GameObject();
@@ -118,7 +113,9 @@ public class EarthController: MonoBehaviour
         sr.sortingLayerName = enemySr.sortingLayerName;
         sr.sortingLayerID = enemySr.sortingLayerID;
         go.transform.parent = this.transform;
-        go.transform.localPosition = Vector3.zero;
+        Vector3 position = Random.insideUnitCircle;
+        position.z = 10;
+        go.transform.localPosition = position;
 
         Lifes -= 1;
         GameController.EarthLifesChanged(Lifes);

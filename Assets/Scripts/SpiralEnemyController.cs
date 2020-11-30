@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class SpiralEnemyController: EnemyController
 {
+    private float MaxFlyTime = 10f; 
     private float RotateSpeed = 0.75f;
     private float RadiusSpeed = 0.75f;
     private float Radius = 0f;
     private float Angle = 0f;
+    private float TotalFlyTime = 0f;
     private Vector3 Offset;
     private Camera Camera;
 
@@ -18,24 +20,44 @@ public class SpiralEnemyController: EnemyController
     }
 
     public override Vector3 Move(float time) 
-    { 
-        Angle += RotateSpeed * time;
-
-        if(Radius < Earth.Radius) 
+    {
+        if (TotalFlyTime < MaxFlyTime) 
         {
-            Radius += RadiusSpeed * time;
-        }
-        else 
-        {
-            Radius -= RadiusSpeed * time * Random.Range(1f, 1.5f);
-        }
+            TotalFlyTime += time;
+            Angle += RotateSpeed * time;
 
-        var oldPosition = transform.position;
-        var newPosition = new Vector3(1.5f*Mathf.Sin(Angle), Mathf.Cos(Angle), 0f) * Radius + Offset;
-        Vector2 targetInViewportPosition = Camera.WorldToViewportPoint(newPosition);
-        Vector3 clampedPosition = Camera.ViewportToWorldPoint(new Vector2(Mathf.Clamp(targetInViewportPosition.x, 0.05f, 0.95f), Mathf.Clamp(targetInViewportPosition.y, 0.05f, 0.95f)));
-        clampedPosition.z = 10;
-        transform.position = Vector3.Lerp(transform.position, clampedPosition, 0.5f);
-        return (newPosition - oldPosition);
+            if(Radius < Earth.Radius) 
+            {
+                Radius += RadiusSpeed * time;
+            }
+            else 
+            {
+                Radius -= RadiusSpeed * time * Random.Range(1f, 1.5f);
+            }
+
+            var oldPosition = transform.position;
+            var newPosition = new Vector3(1.5f*Mathf.Sin(Angle), Mathf.Cos(Angle), 0f) * Radius + Offset;
+            Vector2 targetInViewportPosition = Camera.WorldToViewportPoint(newPosition);
+            Vector3 clampedPosition = Camera.ViewportToWorldPoint(new Vector2(Mathf.Clamp(targetInViewportPosition.x, 0.05f, 0.95f), Mathf.Clamp(targetInViewportPosition.y, 0.05f, 0.95f)));
+            clampedPosition.z = 10;
+            transform.position = Vector3.Lerp(transform.position, clampedPosition, 0.5f);
+            return (newPosition - oldPosition);
+        }
+        else
+        {
+            var targetDirection = Earth.transform.position - transform.position;
+
+            if(targetDirection != Vector3.zero)
+            {
+                var increment = targetDirection * Velocity * 0.5f * Time.deltaTime;
+                transform.position += increment;
+                return increment;
+            }
+            else 
+            {
+                transform.position = Earth.transform.position;
+                return Vector3.zero;
+            }
+        }
     }
 }
