@@ -1,4 +1,4 @@
-<h1>Project for GitHub's Game Off 2020 game jam.</h1>
+<h1>Project for GitHub's Game Off 2020 game jam</h1>
 
 Credits:
 Sun from https://opengameart.org/content/shiny-sun
