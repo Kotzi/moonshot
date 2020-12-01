@@ -8,6 +8,7 @@ using System.Collections;
 
 public class GameController: MonoBehaviour
 {
+    private const float MaxShakingTime = 0.25f;
     public Text WavesText;
     public Text LifesText;
     public Slider MoonShotSlider;
@@ -23,15 +24,20 @@ public class GameController: MonoBehaviour
     public Light2D BackgroundLight;
     public CinemachineVirtualCamera MainVirtualCamera;
     private int CurrentWave = 0;
-    private int CurrentWaveLength = 0;
     private EarthController Earth;
     private SunController Sun;
+    private CinemachineBasicMultiChannelPerlin Noise;
+    private AudioClip HitSound;
+    private bool IsShaking = false;
+    private float ShakingTime = 0f;
     private bool ShouldUpdate = false;
 
     void Awake() 
     {
+        HitSound = Resources.Load<AudioClip>("lava");
         Earth = GameObject.FindObjectOfType<EarthController>();
         Sun = GameObject.FindObjectOfType<SunController>();
+        Noise = MainVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
         for(int i = 1; i <= 100; i++)
         {
@@ -63,42 +69,56 @@ public class GameController: MonoBehaviour
 
     void Update()
     {
-        if(CurrentWaveLength == 0 && ShouldUpdate)
+        if (ShouldUpdate)
         {
-            CurrentWave += 1;
-            WavesText.text = "Wave: " + CurrentWave;
-            var originalScale = WavesText.transform.localScale;
-            WavesText.transform.DOScale(originalScale * 1.3f, 0.7f).OnComplete(() => {
-                WavesText.transform.DOScale(originalScale, 0.3f);
-            });
+            var oldWave = GameObject.Find("EnemyGroup" + CurrentWave);
 
-            var newWave = GameObject.Find("EnemyGroup" + CurrentWave);
-            if (newWave) 
+            if (!oldWave || oldWave.transform.childCount == 0)
             {
-                Sun.IncreaseIntensity();
-                BackgroundLight.intensity = Mathf.Clamp(BackgroundLight.intensity + 0.05f, 0f, 2f);
-                CurrentWaveLength = newWave.transform.childCount;
-                foreach (var enemy in newWave.GetComponentsInChildren<EnemyController>())
+                CurrentWave += 1;
+                WavesText.text = "Wave: " + CurrentWave;
+                var originalScale = WavesText.transform.localScale;
+                WavesText.transform.DOScale(originalScale * 1.3f, 0.7f).OnComplete(() => {
+                    WavesText.transform.DOScale(originalScale, 0.3f);
+                });
+
+                var newWave = GameObject.Find("EnemyGroup" + CurrentWave);
+                if (newWave) 
                 {
-                    enemy.Activate();
+                    Sun.IncreaseIntensity();
+                    BackgroundLight.intensity = Mathf.Clamp(BackgroundLight.intensity + 0.05f, 0f, 2f);
+                    foreach (var enemy in newWave.GetComponentsInChildren<EnemyController>())
+                    {
+                        enemy.Activate();
+                    }
+                }
+                else 
+                {
+                    YouWon.SetActive(true);
+                    ShouldUpdate = false;
                 }
             }
-            else 
+        }
+
+        if (IsShaking) 
+        {
+            ShakingTime -= Time.deltaTime;
+            if (ShakingTime <= 0) 
             {
-                YouWon.SetActive(true);
-                ShouldUpdate = false;
+                UpdateNoise(0f, 0f);
+                IsShaking = true;
             }
         }
-    }
-
-    public void EnemyKilled()
-    {
-        CurrentWaveLength -= 1;
     }
 
     public void EarthLifesChanged(int lifes)
     {
         LifesText.text = "Lifes: " + lifes;
+        var originalScale = LifesText.transform.localScale;
+        LifesText.transform.DOScale(originalScale * 0.8f, 0.7f).OnComplete(() => {
+            LifesText.transform.DOScale(originalScale, 0.3f);
+        });
+        ShakeCamera();
     }
 
     public void UpdateMoonShotSlider(float value)
@@ -109,6 +129,14 @@ public class GameController: MonoBehaviour
     public void UpdateMoonShieldSlider(float value)
     {
         MoonShieldSlider.value = value;
+    }
+
+    public void EnemyDestroyed(bool attacked)
+    {
+        if (attacked)
+        {
+            AudioSource.PlayClipAtPoint(HitSound, transform.position);
+        }
     }
 
     public void EarthDestroyed()
@@ -136,5 +164,21 @@ public class GameController: MonoBehaviour
         yield return new WaitForSeconds(2);
  
         ShouldUpdate = true;
+    }
+
+    private void ShakeCamera() 
+    {
+        UpdateNoise(2f, 2f);
+        IsShaking = true;
+        ShakingTime = MaxShakingTime;
+    }
+
+    private void UpdateNoise(float amplitudeGain, float frequencyGain) 
+    {
+        if (Noise) 
+        {
+            Noise.m_AmplitudeGain = amplitudeGain;
+            Noise.m_FrequencyGain = frequencyGain;
+        }
     }
 }

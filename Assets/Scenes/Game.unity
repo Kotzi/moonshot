@@ -190,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The Earth was consumed by the shadows :(
+  m_Text: The Earth is doomed :(
 --- !u!222 &18862530
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -957,7 +957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -174}
+  m_AnchoredPosition: {x: 0, y: -189}
   m_SizeDelta: {x: 190, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &606331061
@@ -1139,6 +1139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 650388476}
   - component: {fileID: 650388477}
+  - component: {fileID: 650388478}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1172,6 +1173,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &650388478
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650388475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &662675927
 GameObject:
   m_ObjectHideFlags: 0
@@ -2018,8 +2035,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -7.1}
-  m_SizeDelta: {x: 820, y: 252.02267}
+  m_AnchoredPosition: {x: 1.2, y: -0.7}
+  m_SizeDelta: {x: 771.73376, y: 321.37778}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1041131270
 MonoBehaviour:
@@ -2042,10 +2059,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: f14b17f25ddc144519b5f0d7b3565b7c, type: 3}
-    m_FontSize: 34
+    m_FontSize: 27
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -2053,13 +2070,16 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'LA LA LA LA
+  m_Text: 'A group of terrible monsters captured the Sun and they are trying to reach
+    the Earth (nobody knows what happened with Mercury and Venus, please stop asking
+    about them!).
 
-    LA LA LA LA
+    A elite of earthling scientists found a way to give you control
+    of the Moon. Move your <b>mouse to aim</b>, press <b>Z to attack</b> and <b>X
+    to defend</b>.
 
-    LA LA LA LA
-
-    LA LA LA LA'
+    Are you able to complete this <b><i>moonshot</i></b> to save
+    the Earth?'
 --- !u!222 &1041131271
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2474,7 +2494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8235294}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

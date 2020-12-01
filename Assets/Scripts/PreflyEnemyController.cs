@@ -40,6 +40,7 @@ public class PreflyEnemyController: EnemyController
             else 
             {
                 TimeSincePreflyCompleted += time;
+                Animator.SetFloat("HasFaceTime", TimeSincePreflyCompleted);
                 return Earth.transform.position - transform.position; // Fake movement to follow the Earth
             }
         }

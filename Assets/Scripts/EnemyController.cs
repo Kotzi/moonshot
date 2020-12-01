@@ -72,18 +72,35 @@ public class EnemyController: MonoBehaviour
         if(collider.name == "Earth")
         {
             Earth.Attacked(this);
-            Destroyed();
+            Destroyed(false);
         }
         else if (collider.name == "Moon")
         {
-            Destroyed();
+            Destroyed(true);
         }
     }
 
-    void Destroyed()
+    void Destroyed(bool attacked)
     {
-        GameController.EnemyKilled();
-        Destroy(gameObject);
+        IsActive = false;
+        GameController.EnemyDestroyed(attacked);
+
+        if (attacked)
+        {
+            var color = SpriteRenderer.color;
+            color.a = 0.25f;
+            DOTween.Sequence()
+                .Join(transform.DOScale(Vector3.one * 0.25f, 0.5f))
+                .Join(SpriteRenderer.DOColor(color, 0.5f))
+                .Play()
+                .OnComplete(() => {
+                    Destroy(gameObject);
+                });
+        }
+        else 
+        {
+            Destroy(gameObject);
+        }
     }
 
     public virtual void Activate() 
