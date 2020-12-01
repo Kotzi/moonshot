@@ -25,7 +25,6 @@ public class EnemyController: MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
         SpriteRenderer.sprite = SmallSprite;
         FlippableSpriteRendererList = new List<SpriteRenderer>(GetComponentsInChildren<SpriteRenderer>());
-        FlippableSpriteRendererList.Add(SpriteRenderer);
         OnAwake();
     }
 
@@ -60,20 +59,6 @@ public class EnemyController: MonoBehaviour
                     sp.flipX = !sp.flipX;
                 }
             }
-
-            // var direction = transform.rotation * Vector2.right;
-            // var targetDirection = Earth.transform.position - transform.position;
-            // var angleDiff = Vector2.SignedAngle(direction, targetDirection);
-            // var clampedDiff = Mathf.Clamp(
-            //     angleDiff,
-            //     -100 * Time.deltaTime,
-            //     100 * Time.deltaTime
-            // );
-
-            // transform.rotation = Quaternion.AngleAxis(
-            //     transform.eulerAngles.z + clampedDiff,
-            //     Vector3.forward
-            // );
         }
     }
 
@@ -101,8 +86,13 @@ public class EnemyController: MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Activate() 
+    public virtual void Activate() 
     {
+        foreach (var sp in FlippableSpriteRendererList)
+        {
+            sp.sortingOrder += 10;
+        }
+
         IsActive = true;
         Animator.enabled = true;
         transform.DOScale(Vector3.one * 2.5f, 0.75f);

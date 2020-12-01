@@ -10,6 +10,10 @@ public class PreflyEnemyController: EnemyController
     public override void OnAwake()
     {
         MaxTimeSincePreflyCompleted += Random.Range(-0.5f, 1f);
+    }
+
+    public override void Activate()
+    {
         var xModifier = Random.Range(0, 2) == 0 ? -1 : 1;
         var yModifier = Random.Range(0, 2) == 0 ? -1 : 1;
         var position = new Vector3(Earth.transform.position.x * xModifier + Random.Range(-2f, 2f), Earth.transform.position.y * yModifier + Random.Range(-2f, 2f), 10);
@@ -18,6 +22,8 @@ public class PreflyEnemyController: EnemyController
         Vector3 clampedPosition = camera.ViewportToWorldPoint(new Vector2(Mathf.Clamp(targetInViewportPosition.x, 0.05f, 0.95f), Mathf.Clamp(targetInViewportPosition.y, 0.05f, 0.95f)));
         clampedPosition.z = 10;
         PreflyPosition = clampedPosition;
+
+        base.Activate();
     }
 
     public override Vector3 Move(float time) 
@@ -34,14 +40,14 @@ public class PreflyEnemyController: EnemyController
             else 
             {
                 TimeSincePreflyCompleted += time;
-                return Vector3.zero;
+                return Earth.transform.position - transform.position; // Fake movement to follow the Earth
             }
         }
         else
         {
             Vector3 targetDirection = PreflyPosition - transform.position;
 
-            if(Vector3.SqrMagnitude(targetDirection) > 0.5)
+            if(Vector3.SqrMagnitude(targetDirection) > 0.05)
             {
                 var movement = targetDirection * Velocity * time;
                 transform.position += movement;
@@ -52,7 +58,7 @@ public class PreflyEnemyController: EnemyController
                 transform.position = PreflyPosition;
                 PreflyCompleted = true;
                 Animator.SetBool("HasFace", true);
-                return Vector3.zero;
+                return Earth.transform.position - transform.position; // Fake movement to follow the Earth
             }
         }
     }

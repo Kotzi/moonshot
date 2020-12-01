@@ -13,6 +13,6 @@ public class SunController: MonoBehaviour
     public void IncreaseIntensity()
     {
         Light.pointLightOuterRadius += 0.1f;
-        Light.intensity += 0.1f;
+        Light.intensity = Mathf.Clamp(Light.intensity + 0.05f, 0f, 2f);
     }
 }

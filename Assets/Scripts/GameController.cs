@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Experimental.Rendering.Universal;
+using Cinemachine;
+using System.Collections;
 
 public class GameController: MonoBehaviour
 {
@@ -9,16 +12,21 @@ public class GameController: MonoBehaviour
     public Text LifesText;
     public Slider MoonShotSlider;
     public Slider MoonShieldSlider;
+    public GameObject StartUI;
+    public GameObject GameUI;
     public GameObject GameOver;
     public Text GameOverWavesText;
     public GameObject YouWon;
     public GameObject Enemy1;
     public GameObject Enemy2;
     public GameObject Enemy3;
+    public Light2D BackgroundLight;
+    public CinemachineVirtualCamera MainVirtualCamera;
     private int CurrentWave = 0;
     private int CurrentWaveLength = 0;
     private EarthController Earth;
     private SunController Sun;
+    private bool ShouldUpdate = false;
 
     void Awake() 
     {
@@ -55,7 +63,7 @@ public class GameController: MonoBehaviour
 
     void Update()
     {
-        if(CurrentWaveLength == 0 && !YouWon.activeSelf && !GameOver.activeSelf)
+        if(CurrentWaveLength == 0 && ShouldUpdate)
         {
             CurrentWave += 1;
             WavesText.text = "Wave: " + CurrentWave;
@@ -68,6 +76,7 @@ public class GameController: MonoBehaviour
             if (newWave) 
             {
                 Sun.IncreaseIntensity();
+                BackgroundLight.intensity = Mathf.Clamp(BackgroundLight.intensity + 0.05f, 0f, 2f);
                 CurrentWaveLength = newWave.transform.childCount;
                 foreach (var enemy in newWave.GetComponentsInChildren<EnemyController>())
                 {
@@ -77,6 +86,7 @@ public class GameController: MonoBehaviour
             else 
             {
                 YouWon.SetActive(true);
+                ShouldUpdate = false;
             }
         }
     }
@@ -103,12 +113,28 @@ public class GameController: MonoBehaviour
 
     public void EarthDestroyed()
     {
-        GameOverWavesText.text = "You survived " + (CurrentWave) + " waves";
+        ShouldUpdate = false;
+        GameOverWavesText.text = "You survived " + CurrentWave + " waves";
         GameOver.SetActive(true);
     }
 
-    public void Restart()
+    public void RestartClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void StartClicked()
+    {
+        StartUI.SetActive(false);
+        GameUI.SetActive(true);
+        MainVirtualCamera.Priority = 10000;
+        StartCoroutine(DelayedStartGame());
+    }
+
+    IEnumerator DelayedStartGame()
+    {
+        yield return new WaitForSeconds(2);
+ 
+        ShouldUpdate = true;
     }
 }

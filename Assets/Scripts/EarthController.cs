@@ -22,11 +22,13 @@ public class EarthController: MonoBehaviour
     private float RotatingMoonStartingAngle = 0f;
     private float RotatingMoonAngle = 0f;
     private GameController GameController;
+    private Camera Camera;
 
     void Awake()
     {
         GameController = Object.FindObjectOfType<GameController>();
         GameController.EarthLifesChanged(Lifes);
+        Camera = Camera.main;
         var position = transform.position;
         position.z = 0;
         Radius = position.magnitude; // Only if Sun is always centered
@@ -44,8 +46,8 @@ public class EarthController: MonoBehaviour
         {
             IsRotatingMoon = true;
 
-            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(Moon.transform.position);
-            RotatingMoonStartingAngle = Mathf.Atan2(dir.y, dir.x);
+            var direction = Input.mousePosition - Camera.WorldToScreenPoint(Moon.transform.position);
+            RotatingMoonStartingAngle = Mathf.Atan2(direction.y, direction.x);
             RotatingMoonAngle = RotatingMoonStartingAngle;
         }
 
@@ -92,11 +94,11 @@ public class EarthController: MonoBehaviour
         } 
         else 
         {
-            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(Moon.transform.position);
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            Moon.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            var direction = Input.mousePosition - Camera.WorldToScreenPoint(Moon.transform.position);
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Moon.transform.rotation = Quaternion.Slerp(Moon.transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), Time.deltaTime * 10f);
 
-            Moon.transform.localPosition = dir.normalized * AddedDistance;
+            Moon.transform.localPosition = direction.normalized * AddedDistance;
         }
 
         GameController.UpdateMoonShotSlider(1 - (ShootingMoonCooldown/ShootingMoonMaxCooldown));

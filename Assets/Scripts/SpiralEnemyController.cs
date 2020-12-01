@@ -24,15 +24,21 @@ public class SpiralEnemyController: EnemyController
         if (TotalFlyTime < MaxFlyTime) 
         {
             TotalFlyTime += time;
-            Angle += RotateSpeed * time;
 
-            if(Radius < Earth.Radius) 
+            var factor = 0.25f;
+            if (TotalFlyTime > 1f)
             {
-                Radius += RadiusSpeed * time;
-            }
-            else 
-            {
-                Radius -= RadiusSpeed * time * Random.Range(1f, 1.5f);
+                factor = 0.5f;
+                Angle += RotateSpeed * time;
+
+                if(Radius < Earth.Radius) 
+                {
+                    Radius += RadiusSpeed * time;
+                }
+                else 
+                {
+                    Radius -= RadiusSpeed * time * Random.Range(1f, 1.5f);
+                }
             }
 
             var oldPosition = transform.position;
@@ -40,7 +46,7 @@ public class SpiralEnemyController: EnemyController
             Vector2 targetInViewportPosition = Camera.WorldToViewportPoint(newPosition);
             Vector3 clampedPosition = Camera.ViewportToWorldPoint(new Vector2(Mathf.Clamp(targetInViewportPosition.x, 0.05f, 0.95f), Mathf.Clamp(targetInViewportPosition.y, 0.05f, 0.95f)));
             clampedPosition.z = 10;
-            transform.position = Vector3.Lerp(transform.position, clampedPosition, 0.5f);
+            transform.position = Vector3.Lerp(transform.position, clampedPosition, factor);
             return (newPosition - oldPosition);
         }
         else
