@@ -1,5 +1,4 @@
-To fix Unity WebGL Build for Chrome on macOS Big Sur: replace the regex "/Mac OS X (10[\.\_\d]+)" with "/Mac OS X ([10|11][\.\_\d]+)" on the ./Build/UnityLoader.js file.
-
+Project for GitHub's Game Off 2020 game jam.
 
 Credits:
 Sun from https://opengameart.org/content/shiny-sun
