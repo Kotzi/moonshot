@@ -48,7 +48,7 @@ public class PreflyEnemyController: EnemyController
         {
             Vector3 targetDirection = PreflyPosition - transform.position;
 
-            if(Vector3.SqrMagnitude(targetDirection) > 0.05)
+            if(Vector3.SqrMagnitude(targetDirection) > 0.1)
             {
                 var movement = targetDirection * Velocity * time;
                 transform.position += movement;

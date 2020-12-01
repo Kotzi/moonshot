@@ -142,7 +142,7 @@ public class GameController: MonoBehaviour
     public void EarthDestroyed()
     {
         ShouldUpdate = false;
-        GameOverWavesText.text = "You survived " + CurrentWave + " waves";
+        GameOverWavesText.text = "But hey, you survived " + CurrentWave + " waves!";
         GameOver.SetActive(true);
     }
 
