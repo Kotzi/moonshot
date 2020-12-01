@@ -106,7 +106,7 @@ public class GameController: MonoBehaviour
             if (ShakingTime <= 0) 
             {
                 UpdateNoise(0f, 0f);
-                IsShaking = true;
+                IsShaking = false;
             }
         }
     }

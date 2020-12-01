@@ -61,7 +61,6 @@
             new MutationObserver(function (attributesMutation) {
                 this.disconnect();
                 setTimeout(setDimensions, 1)
-                q('.simmer').classList.add('hide');
             }).observe(canvas, {attributes:true});
 
             this.disconnect();

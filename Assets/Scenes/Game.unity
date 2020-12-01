@@ -155,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 30}
-  m_SizeDelta: {x: 1000, y: 50}
+  m_AnchoredPosition: {x: 0, y: 54}
+  m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &18862529
 MonoBehaviour:
@@ -233,8 +233,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 104.93, y: -28.76}
-  m_SizeDelta: {x: 199.86044, y: 24.07946}
+  m_AnchoredPosition: {x: 109.83, y: -31.072}
+  m_SizeDelta: {x: 209.66513, y: 27.855618}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &123919938
 MonoBehaviour:
@@ -262,7 +262,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 242
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -755,8 +755,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -285.68, y: 202.6}
-  m_SizeDelta: {x: 210.19522, y: 56.60291}
+  m_AnchoredPosition: {x: -283.5, y: 202.6}
+  m_SizeDelta: {x: 220, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &445114838
 MonoBehaviour:
@@ -1252,7 +1252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 190}
+  m_AnchoredPosition: {x: 0, y: 185}
   m_SizeDelta: {x: 800, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &649601611
@@ -1392,8 +1392,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -285.68, y: 172.2}
-  m_SizeDelta: {x: 210.19522, y: 56.60291}
+  m_AnchoredPosition: {x: -283.5, y: 166.9}
+  m_SizeDelta: {x: 220, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &768188603
 MonoBehaviour:
@@ -1707,8 +1707,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 96.689, y: -28.301}
-  m_SizeDelta: {x: 183.38275, y: 25}
+  m_AnchoredPosition: {x: 109.83, y: -28.956}
+  m_SizeDelta: {x: 209.66498, y: 27.911507}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &893362849
 MonoBehaviour:
@@ -1736,7 +1736,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 242
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1926,8 +1926,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -30}
-  m_SizeDelta: {x: 400, y: 40}
+  m_AnchoredPosition: {x: 0, y: -15}
+  m_SizeDelta: {x: 800, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &969744991
 MonoBehaviour:
@@ -2357,8 +2357,8 @@ MonoBehaviour:
     of the Moon. Move your <b>mouse to aim</b>, press <b>Z to attack</b> and <b>X
     to defend</b>.
 
-    Are you able to complete this <b><i>moonshot</i></b> to save
-    the Earth?'
+    Would you be able to complete this <b><i>moonshot</i></b>
+    to save the Earth?'
 --- !u!222 &1041131271
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class SpiralEnemyController: EnemyController
             TotalFlyTime += time;
 
             var factor = 0.25f;
-            if (TotalFlyTime > 1f)
+            if (TotalFlyTime > 0.75f)
             {
                 factor = 0.5f;
                 Angle += RotateSpeed * time;
