@@ -8,7 +8,7 @@ public class EarthController: MonoBehaviour
 
     public float Radius = 0f;
     public GameObject Moon;
-    private int Lifes = 10;
+    private int Lives = 10;
     private float RotateSpeed = 1f;
     private float Angle;
     private float AttackSpeed = 10f;
@@ -27,7 +27,7 @@ public class EarthController: MonoBehaviour
     void Awake()
     {
         GameController = Object.FindObjectOfType<GameController>();
-        GameController.EarthLifesChanged(Lifes);
+        GameController.EarthLivesChanged(Lives);
         Camera = Camera.main;
         var position = transform.position;
         position.z = 0;
@@ -119,9 +119,9 @@ public class EarthController: MonoBehaviour
         position.z = 10;
         go.transform.localPosition = position;
 
-        Lifes -= 1;
-        GameController.EarthLifesChanged(Lifes);
-        if (Lifes <= 0)
+        Lives -= 1;
+        GameController.EarthLivesChanged(Lives);
+        if (Lives <= 0)
         {
             Destroyed();
         }

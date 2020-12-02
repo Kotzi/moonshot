@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 306971099}
   - component: {fileID: 306971098}
   m_Layer: 5
-  m_Name: LifesText
+  m_Name: LivesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -572,7 +572,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lifes: 3'
+  m_Text: 'Lives: 3'
 --- !u!222 &306971099
 CanvasRenderer:
   m_ObjectHideFlags: 0

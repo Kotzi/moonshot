@@ -10,7 +10,7 @@ public class GameController: MonoBehaviour
 {
     private const float MaxShakingTime = 0.25f;
     public Text WavesText;
-    public Text LifesText;
+    public Text LivesText;
     public Slider MoonShotSlider;
     public Slider MoonShieldSlider;
     public GameObject StartUI;
@@ -111,12 +111,12 @@ public class GameController: MonoBehaviour
         }
     }
 
-    public void EarthLifesChanged(int lifes)
+    public void EarthLivesChanged(int lives)
     {
-        LifesText.text = "Lifes: " + lifes;
-        var originalScale = LifesText.transform.localScale;
-        LifesText.transform.DOScale(originalScale * 0.8f, 0.7f).OnComplete(() => {
-            LifesText.transform.DOScale(originalScale, 0.3f);
+        LivesText.text = "Lives: " + lives;
+        var originalScale = LivesText.transform.localScale;
+        LivesText.transform.DOScale(originalScale * 0.8f, 0.7f).OnComplete(() => {
+            LivesText.transform.DOScale(originalScale, 0.3f);
         });
         ShakeCamera();
     }
