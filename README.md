@@ -1,6 +1,6 @@
 # Project for GitHub's Game Off 2020 game jam
 
-## Credits:
+## Credits
 
 Sun from https://opengameart.org/content/shiny-sun
 
