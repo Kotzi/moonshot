@@ -1,4 +1,10 @@
-# Project for GitHub's Game Off 2020 game jam
+# Moonshot
+
+![Cover](cover.png?raw=true "Cover")
+
+A project for the GitHub's Game Off 2020 game jam
+
+[Play it online!](https://kotzi.itch.io/moonshot)
 
 ## Credits
 
